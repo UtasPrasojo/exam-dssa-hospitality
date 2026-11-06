@@ -9,23 +9,24 @@ public class RiwayatKunjungan {
         }
     }
 
-    private Node head;     // kunjungan paling awal
-    private Node tail;     // kunjungan paling akhir
-    private Node saatIni;  // kunjungan yang sedang dilihat
+    private Node head; // kunjungan paling awal
+    private Node tail; // kunjungan paling akhir
+    private Node saatIni; // kunjungan yang sedang dilihat
     private int size;
 
-    //tambahKunjungan
+    // tambahKunjungan
     public void tambahKunjungan(String catatan) {
         Node baru = new Node(catatan);
-        if (head == null) {          
+        if (head == null) {
             head = baru;
             tail = baru;
-        } else {               
+        } else {
             tail.next = baru;
             baru.prev = tail;
             tail = baru;
         }
         size++;
+        saatIni = baru;
     }
 
     public void sebelumnya() {
@@ -54,11 +55,12 @@ public class RiwayatKunjungan {
             return;
         }
         int posisi = 1;
-        for (Node n = head; n != saatIni; n = n.next) posisi++;
+        for (Node n = head; n != saatIni; n = n.next)
+            posisi++;
         System.out.println("Kunjungan saat ini : [" + posisi + "/" + size + "] " + saatIni.catatan);
     }
 
-    //menghapus node yang sedang ditunjuk
+    // menghapus node yang sedang ditunjuk
     public void hapusSaatIni() {
         if (saatIni == null) {
             System.out.println("[!] Tidak ada kunjungan untuk dihapus.");
@@ -66,11 +68,15 @@ public class RiwayatKunjungan {
         }
         Node target = saatIni;
 
-        if (target.prev != null) target.prev.next = target.next;
-        else head = target.next;        
+        if (target.prev != null)
+            target.prev.next = target.next;
+        else
+            head = target.next;
 
-        if (target.next != null) target.next.prev = target.prev;
-        else tail = target.prev;        
+        if (target.next != null)
+            target.next.prev = target.prev;
+        else
+            tail = target.prev;
 
         saatIni = (target.next != null) ? target.next : target.prev;
         target.prev = null;
@@ -78,7 +84,7 @@ public class RiwayatKunjungan {
         size--;
     }
 
-    //tampilkan seluruh riwayat dari awal ke akhir
+    // tampilkan seluruh riwayat dari awal ke akhir
     public void tampilkanSemua() {
         System.out.println("Seluruh riwayat:");
         if (head == null) {
